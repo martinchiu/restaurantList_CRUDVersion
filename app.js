@@ -27,8 +27,9 @@ app.get('/search', (req, res) => {
 
   const searchTargetByName = restaurantsData.filter(restaurant => restaurant.name.toLowerCase().includes(keyword))
   const searchTargetByCategory = restaurantsData.filter(restaurant => restaurant.category.includes(keyword))
-  
-  res.render('index', { restaurant: searchTargetByName, category: searchTargetByCategory, keywords})
+  const restaurant = (searchTargetByName.length) ? searchTargetByName : searchTargetByCategory
+
+  res.render('index', {restaurant, keywords})
 })
 
 // start and listen on the Express server
