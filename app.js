@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 const exphbs = require('express-handlebars')
-const restaurantsList = require('./restaurant.json')
+const restaurantsData = require("./restaurant.json").results
 
 // setting template engine
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }))
@@ -14,12 +14,21 @@ app.use(express.static('public'))
 
 // routes setting
 app.get('/', (req, res) => {
-  res.render('index', {restaurant: restaurantsList.results})
+  res.render('index', { restaurant: restaurantsData })
 })
 app.get('/restaurants/:id', (req, res) => {
   const showId = req.params.id
-  const showTarget = restaurantsList.results.find(restaurant => restaurant.id.toString() === showId)
+  const showTarget = restaurantsData.find(restaurant => restaurant.id.toString() === showId)
   res.render('show', { restaurant: showTarget})
+})
+app.get('/search', (req, res) => {
+  const keywords = req.query.keyword
+  const keyword = req.query.keyword.trim().toLowerCase()
+
+  const searchTargetByName = restaurantsData.filter(restaurant => restaurant.name.toLowerCase().includes(keyword))
+  const searchTargetByCategory = restaurantsData.filter(restaurant => restaurant.category.includes(keyword))
+  
+  res.render('index', { restaurant: searchTargetByName, category: searchTargetByCategory, keywords})
 })
 
 // start and listen on the Express server
