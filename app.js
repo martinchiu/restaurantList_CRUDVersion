@@ -5,6 +5,7 @@ const port = 3000
 const exphbs = require('express-handlebars')
 const restaurantsData = require("./restaurant.json").results
 const mongoose = require('mongoose')
+const Restaurant = require('./models/Restaurant')
 
 // setting template engine
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }))
@@ -28,7 +29,10 @@ app.use(express.static('public'))
 
 // routes setting
 app.get('/', (req, res) => {
-  res.render('index', { restaurant: restaurantsData })
+  Restaurant.find()
+    .lean()
+    .then(restaurant => res.render('index', { restaurant }))
+    .catch(error => console.log(error))
 })
 app.get('/restaurants/:id', (req, res) => {
   const showId = req.params.id
