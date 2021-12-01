@@ -36,8 +36,10 @@ app.get('/', (req, res) => {
 })
 app.get('/restaurants/:id', (req, res) => {
   const showId = req.params.id
-  const showTarget = restaurantsData.find(restaurant => restaurant.id.toString() === showId)
-  res.render('show', { restaurant: showTarget})
+  return Restaurant.findById(showId)
+    .lean()
+    .then(restaurant => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
 })
 app.get('/search', (req, res) => {
   const keywords = req.query.keyword
