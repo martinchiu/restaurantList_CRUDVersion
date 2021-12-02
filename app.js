@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const Restaurant = require('./models/Restaurant')
 
 // setting template engine
-app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 // 設定連線到 mongoDB
@@ -26,8 +26,9 @@ db.once('open', () => {
 
 // setting static files
 app.use(express.static('public'))
-
+// setting body-parser
 app.use(express.urlencoded({ extended: true}))
+
 // routes setting
 // 瀏覽全部餐廳
 app.get('/', (req, res) => {
@@ -65,6 +66,21 @@ app.post('/restaurants', (req, res) => {
   return Restaurant.create(newRestaurant)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
+})
+// 編輯餐廳資料
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  Restaurant.findById(id)
+    .lean()
+    .then(restaurant => { res.render('edit', { restaurant })})
+    .catch(err => console.log(err))
+})
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  const editRestaurant = req.body
+  Restaurant.findByIdAndUpdate(id, editRestaurant)
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(err => console.log(err))
 })
 // start and listen on the Express server
 app.listen(port, () => {

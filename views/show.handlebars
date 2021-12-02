@@ -2,13 +2,15 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
-
+      <span class="d-flex justify-content-end">
+        <a href="/restaurants/{{restaurant._id}}/edit" class="btn btn-outline-info mr-2 ">edit</a>
+      </span>
       <p class="mb-1">
         <span class="text-secondary">
           <i class="fas fa-utensils pr-2"></i>
           類別：
         </span>
-        {{restaurant.category}}
+        {{restaurant.category}}          
       </p>
 
       <p class="mb-1">
