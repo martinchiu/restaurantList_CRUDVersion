@@ -3,7 +3,6 @@ const express = require('express')
 const app = express()
 const port = 3000
 const exphbs = require('express-handlebars')
-const restaurantsData = require("./restaurant.json").results
 const mongoose = require('mongoose')
 const Restaurant = require('./models/Restaurant')
 
@@ -49,12 +48,19 @@ app.get('/restaurants/:id', (req, res) => {
 app.get('/search', (req, res) => {
   const keywords = req.query.keyword
   const keyword = req.query.keyword.trim().toLowerCase()
-
-  const restaurant = restaurantsData.filter(function searchKeywords(restaurant){
-    return restaurant.name.toLowerCase().includes(keyword) || restaurant.category.includes(keyword)
-  }) 
-
-  res.render('index', {restaurant, keywords})
+  let restaurant = ''
+  if (keyword === '') {
+    return res.render('index', { restaurant, keywords })
+  }
+  Restaurant.find({})
+    .lean()
+    .then(restaurantsData => {
+      restaurant = restaurantsData.filter(function searchKeywords(restaurant) {
+        return restaurant.name.toLowerCase().includes(keyword) || restaurant.category.includes(keyword)
+      })
+      res.render('index', { restaurant, keywords })
+    })
+    .catch(error => console.log(error))
 })
 // 新增餐廳
 app.get('/restaurant/new', (req, res) => {
@@ -62,7 +68,6 @@ app.get('/restaurant/new', (req, res) => {
 })
 app.post('/restaurants', (req, res) => {
   const newRestaurant = req.body
-  console.log(newRestaurant)
   return Restaurant.create(newRestaurant)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
