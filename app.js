@@ -27,13 +27,16 @@ db.once('open', () => {
 // setting static files
 app.use(express.static('public'))
 
+app.use(express.urlencoded({ extended: true}))
 // routes setting
+// 瀏覽全部餐廳
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
     .then(restaurant => res.render('index', { restaurant }))
     .catch(error => console.log(error))
 })
+// 瀏覽特定餐廳
 app.get('/restaurants/:id', (req, res) => {
   const showId = req.params.id
   return Restaurant.findById(showId)
@@ -41,6 +44,7 @@ app.get('/restaurants/:id', (req, res) => {
     .then(restaurant => res.render('show', { restaurant }))
     .catch(error => console.log(error))
 })
+// 搜尋餐廳
 app.get('/search', (req, res) => {
   const keywords = req.query.keyword
   const keyword = req.query.keyword.trim().toLowerCase()
@@ -51,7 +55,17 @@ app.get('/search', (req, res) => {
 
   res.render('index', {restaurant, keywords})
 })
-
+// 新增餐廳
+app.get('/restaurant/new', (req, res) => {
+  res.render('addRestaurant')
+})
+app.post('/restaurants', (req, res) => {
+  const newRestaurant = req.body
+  console.log(newRestaurant)
+  return Restaurant.create(newRestaurant)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
 // start and listen on the Express server
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`)
