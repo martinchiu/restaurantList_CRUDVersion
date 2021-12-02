@@ -4,6 +4,9 @@
     <div class="col-12 col-md-10 mx-auto">
       <span class="d-flex justify-content-end">
         <a href="/restaurants/{{restaurant._id}}/edit" class="btn btn-outline-info mr-2 ">edit</a>
+        <form action="/restaurants/{{restaurant._id}}/delete" method="post" style="display: inline;">
+          <button type="submit" class="btn btn-danger">delete</button>
+        </form>
       </span>
       <p class="mb-1">
         <span class="text-secondary">

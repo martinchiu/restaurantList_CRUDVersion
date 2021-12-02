@@ -82,6 +82,13 @@ app.post('/restaurants/:id/edit', (req, res) => {
     .then(() => res.redirect(`/restaurants/${id}`))
     .catch(err => console.log(err))
 })
+// 刪除餐廳
+app.post('/restaurants/:id/delete', (req, res) => {
+  const id = req.params.id
+  Restaurant.findByIdAndRemove(id)
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
 // start and listen on the Express server
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`)

@@ -39,9 +39,12 @@
               </span>
 
             </div>
-            <div class="card-footer">
-              <a href="/restaurants/{{this._id}}" class="btn btn-outline-primary mr-2">detail</a>
-              <a href="/restaurants/{{this._id}}/edit" class="btn btn-outline-info mr-2">edit</a>
+            <div class="card-footer d-flex justify-content-around">
+              <a href="/restaurants/{{this._id}}" class="btn btn-outline-primary">detail</a>
+              <a href="/restaurants/{{this._id}}/edit" class="btn btn-outline-info">edit</a>
+              <form action="/restaurants/{{this._id}}/delete" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-danger">delete</button>
+              </form>
             </div>
           </div>
         </a>
