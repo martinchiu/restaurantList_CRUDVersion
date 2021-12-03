@@ -4,7 +4,8 @@
     <div class="col-12 col-md-10 mx-auto">
       <span class="d-flex justify-content-end">
         <a href="/restaurants/{{restaurant._id}}/edit" class="btn btn-outline-info mr-2 ">edit</a>
-        <form action="/restaurants/{{restaurant._id}}/delete" method="post" style="display: inline;">
+        <a href="/" class="btn btn-outline-primary mr-2 ">回首頁</a>
+        <form action="/restaurants/{{restaurant._id}}/delete" method="post" class="delete-form" data-name="{{restaurant.name}}" style="display: inline;">
           <button type="submit" class="btn btn-danger">delete</button>
         </form>
       </span>
@@ -44,3 +45,6 @@
     </div>
   </div>
 </div>
+
+<!-- include javascript files here -->
+<script src="/javascripts/deleteCheck.js"></script>
