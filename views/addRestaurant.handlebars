@@ -29,14 +29,7 @@
       </div>
       <div class="form-group col-6">
         <label for="rating"><span style="color: red;">*</span> 評分</label>
-        <input list="rates" class="form-control" name="rating" id="rating" placeholder="請輸入餐廳評分 範圍：0.0 ~ 5.0 " required>
-        <datalist id="rates">
-          <option>1.0</option>
-          <option>2.0</option>
-          <option>3.0</option>
-          <option>4.0</option>
-          <option>5.0</option>
-        </datalist>
+        <input type="number" step="0.1" min="0.0" max="5.0" class="form-control" name="rating" id="rating" placeholder="請輸入餐廳評分 範圍：0.0 ~ 5.0 " required>
         <div class="valid-feedback">done</div>
         <div class="invalid-feedback">This field is required.</div>
       </div>
@@ -61,12 +54,13 @@
         <input type="text" class="form-control" id="image"
           placeholder="請貼上餐廳照片連結 例如：https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5635/01.jpg"
           name="image" required>
-          <div class="valid-feedback">done</div>
-          <div class="invalid-feedback">This field is required.</div>
+        <div class="valid-feedback">done</div>
+        <div class="invalid-feedback">This field is required.</div>
       </div>
       <div class="form-group col-12 mb-5">
         <label for="description"><span style="color: red;">*</span> 簡介：</label>
-        <textarea class="form-control" id="description" name="description" rows="3" placeholder="請輸入餐廳簡介" required></textarea>
+        <textarea class="form-control" id="description" name="description" rows="3" placeholder="請輸入餐廳簡介"
+          required></textarea>
         <div class="valid-feedback">done</div>
         <div class="invalid-feedback">This field is required.</div>
       </div>
@@ -76,7 +70,7 @@
       <a href="/">
         <button class="btn btn-dark" type="button">返回首頁</button>
       </a>
-    </div>  
+    </div>
   </form>
 </div>
 

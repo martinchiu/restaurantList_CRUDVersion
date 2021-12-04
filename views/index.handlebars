@@ -6,7 +6,7 @@
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
           <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
-            value="{{keywords}}" aria-describedby="search-button">
+            value="{{originalKeyword}}" aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
@@ -56,6 +56,6 @@
 {{else}}
 <div class="m-5 text-center">
   <i style="font-size: 100px; color: gray;" class="fas fa-search "></i>
-  <p class="mt-5">找不到符合「<span style="color:red;">{{keywords}}</span>」的餐廳，請嘗試輸入其他關鍵字</p>
+  <p class="mt-5">找不到符合「<span style="color:red;">{{originalKeyword}}</span>」的餐廳，請嘗試輸入其他關鍵字</p>
 </div>
 {{/if}}

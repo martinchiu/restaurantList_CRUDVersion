@@ -12,6 +12,7 @@ app.set('view engine', 'handlebars')
 
 // 設定連線到 mongoDB
 mongoose.connect('mongodb://localhost/restaurantList')
+
 // 取得資料庫連線狀態
 const db = mongoose.connection
 // 連線異常
@@ -26,7 +27,7 @@ db.once('open', () => {
 // setting static files
 app.use(express.static('public'))
 // setting body-parser
-app.use(express.urlencoded({ extended: true}))
+app.use(express.urlencoded({ extended: true }))
 
 // routes setting
 // 瀏覽全部餐廳
@@ -36,6 +37,7 @@ app.get('/', (req, res) => {
     .then(restaurant => res.render('index', { restaurant }))
     .catch(error => console.log(error))
 })
+
 // 瀏覽特定餐廳
 app.get('/restaurants/:id', (req, res) => {
   const showId = req.params.id
@@ -44,49 +46,58 @@ app.get('/restaurants/:id', (req, res) => {
     .then(restaurant => res.render('show', { restaurant }))
     .catch(error => console.log(error))
 })
+
 // 搜尋餐廳
 app.get('/search', (req, res) => {
-  const keywords = req.query.keyword
-  const keyword = req.query.keyword.trim().toLowerCase()
-  let restaurant = ''
-  if (keyword === '') {
-    return res.render('index', { restaurant, keywords })
+  const originalKeyword = req.query.keyword
+  const parsedKeyword = req.query.keyword.trim().toLowerCase()
+  let restaurantList = []
+  if (parsedKeyword === '') {
+    return res.render('index', { restaurant, originalKeyword })
   }
   Restaurant.find({})
     .lean()
     .then(restaurantsData => {
-      restaurant = restaurantsData.filter(function searchKeywords(restaurant) {
-        return restaurant.name.toLowerCase().includes(keyword) || restaurant.category.includes(keyword)
+      console.log(restaurantList)
+      restaurantList = restaurantsData.filter(function searchKeywords(restaurant) {
+        return restaurant.name.toLowerCase().includes(parsedKeyword) || restaurant.category.includes(parsedKeyword)
       })
-      res.render('index', { restaurant, keywords })
+      console.log(restaurantList)
+
+      res.render('index', { restaurant: restaurantList, originalKeyword })
     })
     .catch(error => console.log(error))
 })
+
 // 新增餐廳
 app.get('/restaurant/new', (req, res) => {
   res.render('addRestaurant')
 })
+
 app.post('/restaurants', (req, res) => {
   const newRestaurant = req.body
   return Restaurant.create(newRestaurant)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
+
 // 編輯餐廳資料
 app.get('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id)
     .lean()
-    .then(restaurant => { res.render('edit', { restaurant })})
+    .then(restaurant => { res.render('edit', { restaurant }) })
     .catch(err => console.log(err))
 })
+
 app.post('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
-  const editRestaurant = req.body
-  Restaurant.findByIdAndUpdate(id, editRestaurant)
+  const editedRestaurant = req.body
+  Restaurant.findByIdAndUpdate(id, editedRestaurant)
     .then(() => res.redirect(`/restaurants/${id}`))
     .catch(err => console.log(err))
 })
+
 // 刪除餐廳
 app.post('/restaurants/:id/delete', (req, res) => {
   const id = req.params.id
@@ -94,6 +105,7 @@ app.post('/restaurants/:id/delete', (req, res) => {
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
+
 // start and listen on the Express server
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`)
