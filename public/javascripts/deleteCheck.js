@@ -14,7 +14,9 @@ deleteForms.forEach(deleteForm => {
     .then(result => {
       if(result.value) {
         Swal.fire("已刪除")
-        deleteForm.submit()
+          .then(() => {
+            deleteForm.submit()
+          })        
       } else {
         Swal.fire("沒刪掉呢")
       }
