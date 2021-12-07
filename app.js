@@ -1,10 +1,14 @@
 // require data and packages used in the project
 const express = require('express')
-const app = express()
-const port = 3000
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
+const methodOverride = require('method-override')
+
 const Restaurant = require('./models/Restaurant')
+
+const port = 3000
+
+const app = express()
 
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -28,6 +32,8 @@ db.once('open', () => {
 app.use(express.static('public'))
 // setting body-parser
 app.use(express.urlencoded({ extended: true }))
+// setting methodOverride
+app.use(methodOverride('_method'))
 
 // routes setting
 // 瀏覽全部餐廳
@@ -90,7 +96,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   const editedRestaurant = req.body
   Restaurant.findByIdAndUpdate(id, editedRestaurant)
@@ -99,7 +105,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 // 刪除餐廳
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   Restaurant.findByIdAndRemove(id)
     .then(() => res.redirect('/'))
