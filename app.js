@@ -1,10 +1,11 @@
 // require data and packages used in the project
 const express = require('express')
 const exphbs = require('express-handlebars')
-const mongoose = require('mongoose')
 const methodOverride = require('method-override')
-
+// 引入 Schema
 const Restaurant = require('./models/Restaurant')
+// 引入 config
+require('./config/mongoose')
 
 const port = 3000
 
@@ -14,19 +15,6 @@ const app = express()
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// 設定連線到 mongoDB
-mongoose.connect('mongodb://localhost/restaurantList')
-
-// 取得資料庫連線狀態
-const db = mongoose.connection
-// 連線異常
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-// 連線成功
-db.once('open', () => {
-  console.log('mongodb connected!')
-})
 
 // setting static files
 app.use(express.static('public'))
@@ -34,6 +22,8 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 // setting methodOverride
 app.use(methodOverride('_method'))
+
+
 
 // routes setting
 // 瀏覽全部餐廳
