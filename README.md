@@ -29,7 +29,7 @@ git clone https://github.com/martinchiu/restaurantList_CRUDVersion.git
 ```
 3. 進入專案資料夾
 ```
-cd restaurant-list
+cd restaurantList_CRUDVersion
 ```
 4. 安裝所需套件
 ```
