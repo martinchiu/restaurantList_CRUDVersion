@@ -19,7 +19,7 @@ router.get('/search', (req, res) => {
   const parsedKeyword = req.query.keyword.trim().toLowerCase()
   let restaurantList = []
   if (parsedKeyword === '') {
-    return res.render('index', { restaurant, originalKeyword })
+    return res.render('index', { restaurantList, originalKeyword })
   }
   Restaurant.find({})
     .lean()
