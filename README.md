@@ -3,7 +3,7 @@
 
 ## 畫面呈現
 ### 首頁
-![首頁]()
+![首頁](https://github.com/martinchiu/restaurantList_CRUDVersion/blob/plusRoutes/public/image/2-3.a6%20首頁.png)
 ### 刪除前確認
 ![刪除前確認](https://github.com/martinchiu/restaurantList_CRUDVersion/blob/main/public/image/2-3.a5刪除前確認.png)
 ### 瀏覽特定資訊
