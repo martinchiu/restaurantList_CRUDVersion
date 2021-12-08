@@ -5,6 +5,18 @@ const router = express.Router()
 // 引用 Restaurant model
 const Restaurant = require('../../models/Restaurant')
 
+// 新增餐廳
+router.get('/new', (req, res) => {
+  res.render('addRestaurant')
+})
+
+router.post('/add', (req, res) => {
+  const newRestaurant = req.body
+  return Restaurant.create(newRestaurant)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 // 瀏覽特定餐廳
 router.get('/:id', (req, res) => {
   const showId = req.params.id
@@ -38,6 +50,5 @@ router.delete('/:id', (req, res) => {
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
-
 
 module.exports = router
