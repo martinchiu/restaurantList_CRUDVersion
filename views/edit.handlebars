@@ -8,12 +8,14 @@
         <input type="text" value="{{restaurant.name}}" class="form-control" id="name" placeholder="請輸入餐廳名稱" name="name"
           required>
         <div class="valid-feedback">done</div>
-        <div class="invalid-feedback">This field is required.</div>
+        <div class="invalid-feedback">請輸入餐廳名稱（中英文皆可）</div>
       </div>
       <div class="form-group col-6">
-        <label for="name_en">英文店名：</label>
+        <label for="name_en"><span style="color: red;">*</span>英文店名：</label>
         <input type="text" class="form-control" id="name_en" placeholder="請輸入餐廳英文店名（可空白）" name="name_en"
-          value="{{restaurant.name_en}}">
+          value="{{restaurant.name_en}}" pattern="[a-zA-Z]{1,}" required>
+        <div class="valid-feedback">done</div>
+        <div class="invalid-feedback">請輸入餐廳英文名稱（大小寫皆可）</div>
       </div>
       <div class="form-group col-6">
         <label for="category"><span style="color: red;">*</span> 類別</label>
@@ -28,48 +30,49 @@
           <option>酒吧</option>
         </datalist>
         <div class="valid-feedback">done</div>
-        <div class="invalid-feedback">This field is required.</div>
+        <div class="invalid-feedback">請輸入餐廳分類或選取預設分類</div>
       </div>
       <div class="form-group col-6">
         <label for="rating"><span style="color: red;">*</span> 評分</label>
         <input type="number" step="0.1" min="0.0" max="5.0" class="form-control" name="rating" id="rating"
           placeholder="請輸入餐廳評分 範圍：0.0 ~ 5.0 " value="{{restaurant.rating}}" required>
         <div class="valid-feedback">done</div>
-        <div class="invalid-feedback">This field is required.</div>
+        <div class="invalid-feedback">請輸入餐廳評分 範圍：0.0 ~ 5.0</div>
       </div>
       <div class="form-group col-6">
         <label for="location"><span style="color: red;">*</span> 地址：</label>
         <input type="text" class="form-control" id="location" placeholder="請輸入餐廳地址" name="location"
           value="{{restaurant.location}}" required>
         <div class="valid-feedback">done</div>
-        <div class="invalid-feedback">This field is required.</div>
+        <div class="invalid-feedback">請輸入餐廳地址</div>
       </div>
       <div class="form-group col-6">
         <label for="phone"><span style="color: red;">*</span> 電話：</label>
-        <input type="text" class="form-control" id="phone" placeholder="請輸入餐廳電話" name="phone"
-          value="{{restaurant.phone}}" required>
+        <input type="text" class="form-control" id="phone" placeholder="請輸入餐廳電話" name="phone" value="{{restaurant.phone}}"
+          pattern="\d{2}-\d{8}" maxlength="11" required>
         <div class="valid-feedback">done</div>
-        <div class="invalid-feedback">This field is required.</div>
+        <div class="invalid-feedback">請依照（區碼）xx-xxxxxxxx格式輸入餐廳電話</div>
       </div>
       <div class="form-group col-12">
-        <label for="google_map">google地圖連結：</label>
-        <input type="text" class="form-control" id="google_map" placeholder="請輸入google地圖連結（可空白）" name="google_map"
-          value="{{restaurant.google_map}}">
+        <label for="google_map"><span style="color: red;">*</span>google地圖連結：</label>
+        <input type="url" class="form-control" id="google_map" placeholder="請輸入google地圖連結" name="google_map"  value="{{restaurant.google_map}}" required>
+        <div class="valid-feedback">done</div>
+        <div class="invalid-feedback">請輸入google地圖連結</div>
       </div>
       <div class="form-group col-12">
         <label for="image"><span style="color: red;">*</span> 照片：</label>
-        <input type="text" class="form-control" id="image"
+        <input type="url" class="form-control" id="image"
           placeholder="請貼上餐廳照片連結 例如：https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5635/01.jpg"
           name="image" value="{{restaurant.image}}" required>
         <div class="valid-feedback">done</div>
-        <div class="invalid-feedback">This field is required.</div>
+        <div class="invalid-feedback">請貼上餐廳照片連結</div>
       </div>
       <div class="form-group col-12 mb-5">
         <label for="description"><span style="color: red;">*</span> 簡介：</label>
         <textarea class="form-control" id="description" name="description" rows="3" placeholder="請輸入餐廳簡介"
           required>{{restaurant.description}}</textarea>
         <div class="valid-feedback">done</div>
-        <div class="invalid-feedback">This field is required.</div>
+        <div class="invalid-feedback">請輸入餐廳簡介</div>
       </div>
     </div>
     <div class="d-flex justify-content-around mb-4">
