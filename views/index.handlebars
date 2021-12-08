@@ -1,6 +1,6 @@
 <!-- search bar -->
 <div class="container search-bar">
-  <div class="search-bar-outer">
+  <div class="search-bar-outer d-flex justify-content-around">
     <div class="search-bar-inner">
       <form action="/search">
         <h4 class="mb-2">尋找餐廳：</h4>
@@ -12,6 +12,20 @@
           </div>
         </div>
       </form>
+    </div>
+    <div class="sort">
+      <h4 class="mb-2" style="color: #9b4b4b;">分類：</h4>
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" style="background-color: #9b4b4b;"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="/asc">A -> Z</a>
+          <a class="dropdown-item" href="/desc">Z -> A</a>
+          <a class="dropdown-item" href="/category">類別</a>
+          <a class="dropdown-item" href="/region">地區</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -42,7 +56,8 @@
             <div class="card-footer d-flex justify-content-around">
               <a href="/restaurants/{{this._id}}" class="btn btn-outline-primary">detail</a>
               <a href="/restaurants/{{this._id}}/edit" class="btn btn-outline-info">edit</a>
-              <form action="/restaurants/{{this._id}}?_method=DELETE" method="post" style="display: inline;" class="delete-form" data-name="{{this.name}}">
+              <form action="/restaurants/{{this._id}}?_method=DELETE" method="post" style="display: inline;"
+                class="delete-form" data-name="{{this.name}}">
                 <button type="submit" class="btn btn-danger">delete</button>
               </form>
             </div>
