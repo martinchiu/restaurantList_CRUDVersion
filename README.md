@@ -2,6 +2,8 @@
 一個使用 Node.js + Express 打造的餐廳美食網站，可以瀏覽餐廳、依據不同搜尋功能進行搜尋、查看詳細資訊、甚至連結到地圖。
 
 ## 畫面呈現
+### 首頁
+![首頁]()
 ### 刪除前確認
 ![刪除前確認](https://github.com/martinchiu/restaurantList_CRUDVersion/blob/main/public/image/2-3.a5刪除前確認.png)
 ### 瀏覽特定資訊
