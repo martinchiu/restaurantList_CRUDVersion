@@ -14,8 +14,6 @@ router.get('/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-
-
 // 新增餐廳
 router.get('/new', (req, res) => {
   res.render('addRestaurant')
