@@ -13,6 +13,9 @@ const restaurant = require('./modules/restaurant')
 // 將網址結構符合 /restaurants 字串開頭的 request 導向 restaurant 模組
 router.use('/restaurants', restaurant)
 
+// 引入 new 模組程式碼
+const addNew = require('./modules/new')
+router.use('/add', addNew)
 
 // 匯出路由器
 module.exports = router

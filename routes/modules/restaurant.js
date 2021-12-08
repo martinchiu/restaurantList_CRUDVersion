@@ -14,18 +14,6 @@ router.get('/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// 新增餐廳
-router.get('/new', (req, res) => {
-  res.render('addRestaurant')
-})
-
-router.post('/', (req, res) => {
-  const newRestaurant = req.body
-  return Restaurant.create(newRestaurant)
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
 // 編輯餐廳資料
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
