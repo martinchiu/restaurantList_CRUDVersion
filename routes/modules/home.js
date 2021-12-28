@@ -7,8 +7,10 @@ const Restaurant = require('../../models/Restaurant')
 
 // 定義首頁路由
 router.get('/', (req, res) => {
+  // model.find() 在未傳入參數時，會回傳整份資料
   Restaurant.find()
-    .lean()
+  // 把從 model 取來的特殊物件（含有原型鍊(prototype chain)及繼承了其他操作方法的，複雜的物件）透過lean() 方法轉換成單純的資料物件
+    .lean()    
     .then(restaurant => res.render('index', { restaurant }))
     .catch(error => console.log(error))
 })
@@ -21,13 +23,14 @@ router.get('/search', (req, res) => {
   if (parsedKeyword === '') {
     return res.render('index', { restaurantList, originalKeyword })
   }
-  Restaurant.find({})
+  Restaurant.find({
+    $or: [
+      { name: { $regex: parsedKeyword, $options: 'i' }},
+      { category: { $regex: parsedKeyword, $options: 'i' }}
+    ]
+  })
     .lean()
-    .then(restaurantsData => {
-      restaurantList = restaurantsData.filter(function searchKeywords(restaurant) {
-        return restaurant.name.toLowerCase().includes(parsedKeyword) || restaurant.category.includes(parsedKeyword)
-      })
-
+    .then(restaurantList => {
       res.render('index', { restaurant: restaurantList, originalKeyword })
     })
     .catch(error => console.log(error))

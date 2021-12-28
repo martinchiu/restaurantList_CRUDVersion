@@ -12,5 +12,6 @@ const restaurantSchema = new Schema({
   rating: { type: Number, required: true },
   description: { type: String, required: true }
 })
-
+// Compile Schema 變成 Model，如此可以透過這個 Model 建立和儲存 document
 module.exports = mongoose.model('Restaurant', restaurantSchema)
+
