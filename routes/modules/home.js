@@ -39,20 +39,20 @@ router.get('/search', (req, res) => {
 // 定義分類路由
 router.get('/:sort', (req, res) => {
   const sort = req.params.sort
-  let sortWay = ''
+  let sortWay = {}
 
   switch (sort) {
     case 'asc':
-      sortWay = 'name_en'
+      sortWay.name_en = 'asc'
       break;
     case 'desc':
-      sortWay = '-name_en'
+      sortWay.name_en = 'desc'
       break;
     case 'category':
-      sortWay = 'category'
+      sortWay.category = 'asc'
       break;
-    case 'region':
-      sortWay = 'region'
+    case 'location':
+      sortWay.location = 'asc'
       break;
   }
 
