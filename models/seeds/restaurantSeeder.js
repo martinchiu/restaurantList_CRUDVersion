@@ -27,7 +27,7 @@ db.once('open', () => {
     return bcrypt.genSalt(10)
       .then(salt => bcrypt.hash(seedUser.password, salt))
       .then(hash => User.create({
-        name: seedUser.name,
+        name: seedUser.name || 'Seeder',
         email: seedUser.email,
         password: hash
       }))
