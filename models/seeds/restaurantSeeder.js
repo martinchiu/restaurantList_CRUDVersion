@@ -1,16 +1,48 @@
-// 使用建立好的model 來新增data
+const bcrypt = require('bcryptjs')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const Restaurant = require('../Restaurant')
-// 待建立的data
+const User = require('../user')
+// 種子資料
 const restaurantsData = require('../../restaurant.json').results
+const SEED_USER = [
+  {
+    email: 'user1@example.com',
+    password: '12345678',
+    restaurantId: [0, 1, 2]
+  },
+  {
+    email: 'user2@example.com',
+    password: '12345678',
+    restaurantId: [3, 4, 5]
+  }
+]
 
 // 取得連線狀態
 const db = require('../../config/mongoose')
 
 db.once('open', () => {
-  Restaurant.create(restaurantsData)  // 建立document
+  Promise.all(Array.from(SEED_USER, (seedUser) => {
+    return bcrypt.genSalt(10)
+      .then(salt => bcrypt.hash(seedUser.password, salt))
+      .then(hash => User.create({
+        name: seedUser.name,
+        email: seedUser.email,
+        password: hash
+      }))
+      .then(user => {
+        const seedRestaurant = []
+        seedUser.restaurantId.forEach(index => {
+          restaurantsData[index].userId = user._id
+          seedRestaurant.push(restaurantsData[index])
+        })
+        return Restaurant.create(seedRestaurant)
+      })
+  }))
     .then(() => {
-      console.log('done')
-      db.close()
+      console.log('done.')
+      process.exit()
     })
     .catch(error => console.log(error))
 })
