@@ -6,6 +6,10 @@ const session = require('express-session')
 const usePassport = require('./config/passport')
 const flash = require('connect-flash')
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 // 引入 Schema
 const Restaurant = require('./models/Restaurant')
 // 引入 config
@@ -13,7 +17,7 @@ require('./config/mongoose')
 // 引用路由器
 const routes = require('./routes')
 
-const port = 3000
+const port = process.env.PORT
 
 const app = express()
 
@@ -23,7 +27,7 @@ app.set('view engine', 'handlebars')
 
 // use middleware
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))

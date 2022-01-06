@@ -6,11 +6,13 @@ const router = express.Router()
 const home = require('./modules/home')
 const restaurant = require('./modules/restaurant')
 const users = require('./modules/users')
+const Oauth = require('./modules/Oauth')
 
 // 引入 middleware
 const { authenticator } = require('../middleware/auth')
 
 router.use('/users', users)
+router.use('/Oauth', Oauth)
 router.use('/restaurants', authenticator, restaurant)
 router.use('/', authenticator, home)
 
