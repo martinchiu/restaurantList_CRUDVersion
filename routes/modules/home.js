@@ -21,7 +21,7 @@ router.get('/search', (req, res) => {
   const userId = req.user._id
   let restaurantList = []
   if (parsedKeyword === '') {
-    return res.render('index', { restaurantList, originalKeyword })
+    return res.render('search', { restaurantList, originalKeyword })
   }
   Restaurant.find({
     userId,
@@ -32,7 +32,7 @@ router.get('/search', (req, res) => {
   })
     .lean()
     .then(restaurantList => {
-      res.render('index', { restaurant: restaurantList, originalKeyword })
+      res.render('search', { restaurant: restaurantList, originalKeyword })
     })
     .catch(error => console.log(error))
 })

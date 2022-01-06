@@ -36,6 +36,7 @@
 </div>
 
 <!-- restaurant list -->
+{{#if restaurant}}
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
@@ -72,3 +73,9 @@
     </div>
   </div>
 </div>
+{{else}}
+<div class="m-5 text-center">
+  <i style="font-size: 100px; color: gray;" class="fas fa-search "></i>
+  <p class="mt-5">找不到符合「<span style="color:red;">{{originalKeyword}}</span>」的餐廳，請嘗試輸入其他關鍵字</p>
+</div>
+{{/if}}
