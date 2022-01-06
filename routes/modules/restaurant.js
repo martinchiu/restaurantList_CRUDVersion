@@ -12,6 +12,7 @@ router.get('/new', (req, res) => {
 
 router.post('/add', (req, res) => {
   const newRestaurant = req.body
+  newRestaurant.userId = req.user._id
   return Restaurant.create(newRestaurant)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
@@ -20,7 +21,8 @@ router.post('/add', (req, res) => {
 // 瀏覽特定餐廳
 router.get('/:id', (req, res) => {
   const showId = req.params.id
-  return Restaurant.findById(showId)
+  const userId = req.user._id
+  return Restaurant.findOne({ showId, userId })
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
     .catch(error => console.log(error))
@@ -30,9 +32,10 @@ router.get('/:id', (req, res) => {
 router.get('/:id/edit', (req, res) => {
   if (!req.params.id) return  // 檢查前端帶入是否為空值
 
-  const id = req.params.id
+  const _id = req.params.id
+  const userId = req.user._id
   // 透過 id 找到要編輯的資料
-  Restaurant.findById(id)
+  Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => { res.render('edit', { restaurant }) })
     .catch(err => console.log(err))
@@ -40,18 +43,20 @@ router.get('/:id/edit', (req, res) => {
 // 編輯完成後，透過 findByIdAndUpdate() 更新資料
 router.put('/:id', (req, res) => {
   if (!req.body) return   
-
-  const id = req.params.id
+  
+  const _id = req.params.id
+  const userId = req.user._id
   const editedRestaurant = req.body
-  Restaurant.findByIdAndUpdate(id, editedRestaurant)
-    .then(() => res.redirect(`/restaurants/${id}`))
+  Restaurant.findOneAndUpdate({ _id, userId }, editedRestaurant)
+    .then(() => res.redirect(`/restaurants/${_id}`))
     .catch(err => console.log(err))
 })
 
 // 刪除餐廳
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  Restaurant.findByIdAndDelete(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  Restaurant.findOneAndDelete({ _id, userId })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })

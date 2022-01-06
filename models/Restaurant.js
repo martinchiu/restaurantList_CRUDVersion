@@ -10,7 +10,13 @@ const restaurantSchema = new Schema({
   phone: { type: String, required: true },
   google_map: { type: String },
   rating: { type: Number, required: true },
-  description: { type: String, required: true }
+  description: { type: String, required: true },
+  userId: {  
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
+  }
 })
 // Compile Schema 變成 Model，如此可以透過這個 Model 建立和儲存 document
 module.exports = mongoose.model('Restaurant', restaurantSchema)
