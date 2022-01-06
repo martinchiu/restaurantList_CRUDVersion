@@ -7,9 +7,12 @@ const home = require('./modules/home')
 const restaurant = require('./modules/restaurant')
 const users = require('./modules/users')
 
+// 引入 middleware
+const { authenticator } = require('../middleware/auth')
+
 router.use('/users', users)
-router.use('/restaurants', restaurant)
-router.use('/', home)
+router.use('/restaurants', authenticator, restaurant)
+router.use('/', authenticator, home)
 
 // 匯出路由器
 module.exports = router
