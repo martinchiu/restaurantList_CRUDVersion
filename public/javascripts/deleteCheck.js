@@ -5,22 +5,21 @@ deleteForms.forEach(deleteForm => {
     event.preventDefault()
     event.stopPropagation()
     const name = event.target.dataset.name
-    
+
     Swal.fire({
       title: `你確定要刪除${name}嗎？`,
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true
     })
-    .then(result => {
-      if(result.value) {
-        Swal.fire("已刪除")
-          .then(() => {
-            deleteForm.submit()
-          })        
-      } else {
-        Swal.fire("沒刪掉呢")
-      }
-    })
-    
+      .then(result => {
+        if (result.value) {
+          Swal.fire('已刪除')
+            .then(() => {
+              deleteForm.submit()
+            })
+        } else {
+          Swal.fire('沒刪掉呢')
+        }
+      })
   })
 })

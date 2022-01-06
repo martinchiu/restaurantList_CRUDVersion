@@ -46,4 +46,3 @@ db.once('open', () => {
     })
     .catch(error => console.log(error))
 })
-

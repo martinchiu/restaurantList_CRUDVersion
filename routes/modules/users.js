@@ -22,10 +22,10 @@ router.get('/register', (req, res) => {
 router.post('/register', (req, res) => {
   // 取得註冊表單參數
   const { email, password, confirmPassword } = req.body
-  const name = req.body.name || 'client'  // 因為 name 非必填，使用者未填時自動賦值
-  
+  const name = req.body.name || 'client' // 因為 name 非必填，使用者未填時自動賦值
+
   const errors = []
-  if ( !email || !password || !confirmPassword) {
+  if (!email || !password || !confirmPassword) {
     errors.push({ message: '除了名字以外，所有欄位都是必填。' })
   }
   if (password !== confirmPassword) {
@@ -42,18 +42,18 @@ router.post('/register', (req, res) => {
   }
   // 檢查使用者是否已經註冊
   User.findOne({ email })
-  .then(user => {
+    .then(user => {
     // 如果已經註冊：退回原本畫面
-    if (user) {
-      errors.push({ message: '這個 Email 已經註冊過了。' })
-      res.render('register', {
-        errors,
-        name,
-        email,
-        password,
-        confirmPassword
-      })
-    } 
+      if (user) {
+        errors.push({ message: '這個 Email 已經註冊過了。' })
+        res.render('register', {
+          errors,
+          name,
+          email,
+          password,
+          confirmPassword
+        })
+      }
       // 如果還沒註冊：寫入資料庫
       return bcrypt
         .genSalt(10)
@@ -65,7 +65,7 @@ router.post('/register', (req, res) => {
         }))
         .then(() => res.render('login', { email })) // 註冊完成導回登入頁，並帶上註冊的 email
         .catch(err => console.log(err))
-  })
+    })
 })
 
 // logout

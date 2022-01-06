@@ -6,7 +6,7 @@ const passport = require('passport')
 router.get('/facebook', passport.authenticate('facebook', {
   scope: ['email', 'public_profile']
 }))
-//Facebook 發資料回來
+// Facebook 發資料回來
 router.get('/facebook/callback', passport.authenticate('facebook', {
   successRedirect: '/',
   failureRedirect: '/users/login'

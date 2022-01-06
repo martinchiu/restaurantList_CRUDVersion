@@ -30,7 +30,7 @@ router.get('/:id', (req, res) => {
 
 // 編輯餐廳資料
 router.get('/:id/edit', (req, res) => {
-  if (!req.params.id) return  // 檢查前端帶入是否為空值
+  if (!req.params.id) return // 檢查前端帶入是否為空值
 
   const _id = req.params.id
   const userId = req.user._id
@@ -42,8 +42,8 @@ router.get('/:id/edit', (req, res) => {
 })
 // 編輯完成後，透過 findByIdAndUpdate() 更新資料
 router.put('/:id', (req, res) => {
-  if (!req.body) return   
-  
+  if (!req.body) return
+
   const _id = req.params.id
   const userId = req.user._id
   const editedRestaurant = req.body
