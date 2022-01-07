@@ -47,13 +47,10 @@ cd restaurant-list
 npm install
 ```
 5. 啟動MongoDB 伺服器及創建資料庫並命名「restaurantList」
-6. 產生一組種子資料給資料庫
+6. 產生一組種子資料給資料庫，種子資料：{email: user1@example.com, password: 12345678} 、{email: user2@example.com, password: 12345678}
 ```
 npm run seed
 ```
-6.1 種子資料：
-{email: user1@example.com, password: 12345678} 
-{email: user2@example.com, password: 12345678}
 7. 快速啟動（如果要進入開發者模式，請輸入：npm run dev，請先確保有安裝nodemon)
 ```
 npm run start
