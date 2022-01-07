@@ -5,15 +5,6 @@ const router = express.Router()
 // 引用 Restaurant model
 const Restaurant = require('../../models/Restaurant')
 
-// 定義首頁路由
-router.get('/', (req, res) => {
-  const userId = req.user._id
-  Restaurant.find({ userId })
-    .lean()
-    .then(restaurant => res.render('index', { restaurant }))
-    .catch(error => console.log(error))
-})
-
 // 搜尋餐廳
 router.get('/search', (req, res) => {
   const originalKeyword = req.query.keyword
@@ -56,10 +47,19 @@ router.get('/:sort', (req, res) => {
       sortWay.location = 'asc'
       break
   }
-
+  const userId = req.user._id
   Restaurant.find({ userId })
     .lean()
     .sort(sortWay)
+    .then(restaurant => res.render('index', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+// 定義首頁路由
+router.get('/', (req, res) => {
+  const userId = req.user._id
+  Restaurant.find({ userId })
+    .lean()
     .then(restaurant => res.render('index', { restaurant }))
     .catch(error => console.log(error))
 })
