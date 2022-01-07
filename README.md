@@ -18,11 +18,11 @@
 ![修改餐廳](https://github.com/martinchiu/restaurantList_CRUDVersion/blob/main/public/image/2-3.a5修改餐廳.png)
 
 ## 功能
-# 登入前
+### 登入前
 - 使用者可以用信箱註冊
 - 使用者可以用臉書帳號登入
 - 使用者可以用google帳號登入
-# 登入後
+### 登入後
 - 使用者可以在首頁看到所有餐廳與它們的簡單資料，包含照片、店名、分類、評分
 - 使用者可以點擊照片瀏覽更多資訊
 - 使用者可以透過地址連結至google map
