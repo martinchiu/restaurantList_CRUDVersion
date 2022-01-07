@@ -16,6 +16,7 @@ const Restaurant = require('./models/Restaurant')
 require('./config/mongoose')
 // 引用路由器
 const routes = require('./routes')
+const { createLocals } = require('./middleware/createLocals')
 
 const port = process.env.PORT
 
@@ -38,13 +39,7 @@ app.use(flash())
 
 usePassport(app)
 
-app.use((req, res, next) => {
-  res.locals.isAuthenticated = req.isAuthenticated()
-  res.locals.user = req.user
-  res.locals.success = req.flash('success')
-  res.locals.warning = req.flash('warning')
-  next()
-})
+app.use(createLocals)
 
 app.use(routes)
 
